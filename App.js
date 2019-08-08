@@ -42,14 +42,17 @@ export default function App() {
     setComputerChoice(newComputerChoice);
   };
 
-  console.log('phil', userChoice)
-  console.log('computer', computerChoice)
+  const getResultColor = () => {
+    if (gamePrompt === 'Victory!') return 'green';
+    if (gamePrompt === 'Defeat!') return 'red';
+    return null;
+  };
   return (
     <ImageBackground style={styles.bg} source={bgImage}>
       <View style={styles.container}>
         <View style={styles.choicesContainer}>
           <View>
-            <Text style={styles.gamePromptText}>{gamePrompt}</Text>
+            <Text style={[styles.gamePromptText, { color: getResultColor() }]}>{gamePrompt}</Text>
           </View>
           {/* needs its own style  */}
           <View style={styles.playersContainer}>
@@ -82,8 +85,6 @@ export default function App() {
             </View>
           </View>
         </View>
-
-
         {
           CHOICES.map(choice => {
             return <Button key={choice.name} name={choice.name} pressChoice={pressChoice} />;
@@ -110,7 +111,7 @@ const styles = StyleSheet.create({
     fontSize: 25,
     color: '#250902',
     fontWeight: 'bold',
-    paddingTop: 50
+    paddingTop: 50,
   },
   choicesContainer: {
     margin: 10,
